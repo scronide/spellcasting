@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Spelling</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/animate.css">
+  <link rel="stylesheet" href="css/sweet-alert.css">
+  <link rel="stylesheet" href="css/spelling.css">
+</head>
+<body>
+  <div class="container">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="js/sweet-alert.min.js"></script>
+    <script src="js/buzz.min.js"></script>
+    <script>
+    var words = ['cleric', 'druid', 'mage', 'sorcerer', 'warlock'];
+
+    var ascenders  = ['t','d','f','h','k','l','b'];
+    var descenders = ['q','y','p','g','j'];
+    var error = new buzz.sound( "sounds/error", {
+      formats: [ "mp3" ]
+    });
+    var win = new buzz.sound( "sounds/win", {
+      formats: [ "mp3" ]
+    });
+
+    for (i = 0; i < words.length; ++i) {
+      output = '<div class="word-box" data-errors="0">';
+      for (j = 0; j < words[i].length; ++j) {
+        var letter    = words[i][j];
+        var classname = 'normal';
+        if (ascenders.indexOf(letter) != -1) {
+          classname = 'asc';
+        }
+        if (descenders.indexOf(letter) != -1) {
+          classname = 'desc';
+        }
+        output += '<input data-letter="' + letter + '" class="' + classname + '" size="1" maxlength="1" />';
+      }
+      output += '</div>';
+      $(".container").append(output);
+    }
+    $("input").on('input', function() {
+      var box = $(this).parents(".word-box").first();
+      $(this).removeClass('correct incorrect bounceIn shake');
+
+      if ($(this).val() === $(this).data('letter')) {
+        $(this).addClass('correct animated bounceIn');
+        $(this).nextAll('input').first().focus();
+      }
+      else {
+        $(this).addClass('inc orrect animated shake');
+        $(this).val("");
+
+        error.play();
+
+        errors = $(box).data("errors");
+        $(box).data("errors", ++errors);
+      }
+
+      if ($("input", box).length == $(".correct", box).length) {
+        sweetAlert("Well done!", "You got it right! Awesome!", "success");
+        win.play();
+
+        $(box).append('<span class="glyphicon glyphicon-ok animated fadeIn" aria-hidden="true"></span>');
+
+        errors = $(box).data("errors");
+        if (errors < 1) {
+          $(box).append('<span class="glyphicon glyphicon-star animated fadeIn" aria-hidden="true"></span>');
+        }
+      }
+    });
+    </script>
+  </div>
+
+</body>
+</html>

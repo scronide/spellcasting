@@ -1,0 +1,45 @@
+* {
+  font-family: chalkboard, sans-serif;
+  font-size: 2em;
+}
+body {
+  background: #E1F5FE;
+}
+input {
+  border: 2px solid #81D4FA;
+  margin: .5em 2px;
+  padding: 0 .25em;
+  width: 1.5em;
+}
+.asc {
+  padding-top: .5em;
+  margin-top: 0;
+}
+.container {
+  margin: 2em;
+}
+.correct {
+  border-color: #4CAF50;
+  color: #4CAF50;
+}
+.desc {
+  margin-bottom: 0;
+  padding-bottom: .5em;
+}
+.glyphicon {
+  margin-left: .5em;
+}
+.glyphicon-ok {
+  color: #4CAF50;
+}
+.glyphicon-star {
+  color: #FF9800;
+}
+.incorrect {
+  border-color: #000;
+}
+.word-box {
+  border-bottom: 1px dashed #81D4FA;
+  margin-bottom: 1em;
+  padding-bottom: .5em;
+}
